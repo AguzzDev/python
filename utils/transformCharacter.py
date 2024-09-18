@@ -1,5 +1,5 @@
 import unicodedata
-from utils.dictionarys import charDictionary
+from utils.dictionaries import charDictionary
 
 
 def transform_characters(text):

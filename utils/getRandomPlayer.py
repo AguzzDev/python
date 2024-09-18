@@ -1,7 +1,7 @@
 import random
 
 from data.players_data import PLAYERS
-from utils.dictionarys import leagueDictionary
+from utils.dictionaries import leagueDictionary
 
 
 def parse_market_value(value):

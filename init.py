@@ -1,5 +1,5 @@
 from utils.getRandomPlayer import getRandomPlayer
-from utils.dictionarys import leagueDictionary, difficultDictionary
+from utils.dictionaries import leagueDictionary, difficultDictionary
 from utils.inputs import input_question, input_options
 
 """

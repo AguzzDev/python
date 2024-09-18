@@ -1,11 +1,14 @@
 from utils.transformCharacter import transform_characters
 
 
-def input_options(text, limit=7):
+def input_options(text, limit):
+    options = [str(i+1) for i in range(limit)]
+
+    print(options)
     while True:
         output = input(text)
 
-        if output and int(output) <= limit:
+        if output in options:
             return output
 
 
