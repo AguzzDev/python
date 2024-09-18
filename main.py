@@ -22,10 +22,8 @@ def main():
 
     all_leagues_or_competition = html.select(
         "#spieltagsbox div[class='kategorie']")
-    for i in range(len(all_leagues_or_competition)):
-        find = all_leagues_or_competition[i]
-
-        title = find.select_one("h2 a").text
+    for i, data in enumerate(all_leagues_or_competition):
+        title = data.select_one("h2 a").text
 
         if title in matchesFilterDictionary:
             league_and_position.append({"pos": i, "title": title})
@@ -48,7 +46,8 @@ def main():
             if league in cupsDictionary:
                 league_text = f"\n🏆 {league}\n"
             else:
-                league_text = f"\n{leagueIconDictionary.get(league)} {league}\n"
+                league_text = f"\n{leagueIconDictionary.get(league)} {
+                    league}\n"
 
             match_text = f"{local_team} - {result.text} - {visitant_team}\n"
 
