@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from utils.dictionarys import matchesFilterDictionary
+from utils.dictionaries import matchesFilterDictionary, cupsDictionary, leagueIconDictionary
 
 BASE_URL = "https://www.transfermarkt.es/ticker/index/live"
 headers = {
@@ -16,9 +16,9 @@ def main():
     html = BeautifulSoup(response.text, 'html.parser')
 
     league_and_position = []
-    end_games = "\n---Partidos terminados---\n"
-    next_games = "\n---Proximos partidos---\n"
-    live_games = "\n---Partidos en vivo---\n"
+    end_games = "\n✅ --- Partidos terminados --- ✅\n"
+    next_games = "\n🔜 --- Proximos partidos --- 🔜\n"
+    live_games = "\n⚽ --- Partidos en vivo --- ⚽\n"
 
     all_leagues_or_competition = html.select(
         "#spieltagsbox div[class='kategorie']")
@@ -45,7 +45,11 @@ def main():
             result = row.select_one(
                 "td:nth-child(4) a span")
 
-            league_text = f"\n{league}\n"
+            if league in cupsDictionary:
+                league_text = f"\n🏆 {league}\n"
+            else:
+                league_text = f"\n{leagueIconDictionary.get(league)} {league}\n"
+
             match_text = f"{local_team} - {result.text} - {visitant_team}\n"
 
             if "liveresult" in result.get("class", []):
@@ -66,7 +70,7 @@ def main():
 
             i += 1
 
-    return f"{live_games}{end_games}{next_games}"
+    return f"👋 Bienvenido, los partidos se muestran con el uso horario GMT+2\n{live_games}{next_games}{end_games}"
 
 
 print(main())
