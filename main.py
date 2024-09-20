@@ -49,13 +49,15 @@ def main():
                 "td:nth-child(5) a img")["data-src"] or None
             result = row.select_one(
                 "td:nth-child(4) a span")
-
+            info = row.select_one("td").text.strip() or ""
+            
             if league in cupsDictionary:
                 league_text = f"\n🏆 {league}\n"
             else:
                 league_text = f"\n{leagueIconDictionary.get(league)} {
                     league}\n"
-            match_text = f"{local_team} - {result.text} - {visitant_team}\n"
+            match_text = f"{info} - {
+                local_team} - {result.text} - {visitant_team}\n"
 
             if "liveresult" in result.get("class", []):
                 if i == 0:
