@@ -6,7 +6,7 @@ matchesFilterDictionary = [
     "Eredivisie",
     "Premier League",
     "Ligue 1",
-    "Serie A"
+    "Serie A",
     "Bundesliga"
 ]
 

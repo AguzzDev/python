@@ -1,5 +1,6 @@
 import sys
 import requests
+import json
 from bs4 import BeautifulSoup
 from utils.dictionaries import matchesFilterDictionary, cupsDictionary, leagueIconDictionary
 from utils.db import save_db
@@ -84,6 +85,7 @@ def main():
 
     if len(sys.argv) == 2 and sys.argv[1] == "save":
         save_db(games)
+        print(json.dumps(games))
     else:
         print(result_text)
 
