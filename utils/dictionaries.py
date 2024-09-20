@@ -7,13 +7,16 @@ matchesFilterDictionary = [
     "Premier League",
     "Ligue 1",
     "Serie A",
-    "Bundesliga"
+    "Bundesliga",
+    "Copa Argentina",
+    "Liga Profesional de Fútbol",
 ]
 
 cupsDictionary = [
     "UEFA Champions League",
     "Copa Libertadores",
     "Copa Sudamericana",
+    "Copa Argentina"
 ]
 
 leagueIconDictionary = {
