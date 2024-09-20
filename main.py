@@ -1,11 +1,13 @@
 from bs4 import BeautifulSoup
 import requests
 from utils.dictionaries import matchesFilterDictionary, cupsDictionary, leagueIconDictionary
+from utils.db import save_db
 
 BASE_URL = "https://www.transfermarkt.es/ticker/index/live"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
 }
+games = []
 
 
 def main():
@@ -29,7 +31,6 @@ def main():
             league_and_position.append({"pos": i, "title": title})
 
     tables = html.select("table.livescore")
-
     for item in league_and_position:
         league = item.get("title")
         pos = item.get("pos")
@@ -39,7 +40,11 @@ def main():
 
         for row in rows:
             local_team = row.select_one("td:nth-child(3) a").text.strip()
+            local_team_img = row.select_one(
+                "td:nth-child(3) a img")["data-src"] or None
             visitant_team = row.select_one("td:nth-child(5) a").text.strip()
+            visitant_team_img = row.select_one(
+                "td:nth-child(5) a img")["data-src"] or None
             result = row.select_one(
                 "td:nth-child(4) a span")
 
@@ -48,7 +53,6 @@ def main():
             else:
                 league_text = f"\n{leagueIconDictionary.get(league)} {
                     league}\n"
-
             match_text = f"{local_team} - {result.text} - {visitant_team}\n"
 
             if "liveresult" in result.get("class", []):
@@ -56,20 +60,29 @@ def main():
                     live_games += league_text
 
                 live_games += match_text
+                status = "live"
             elif "finished" in result.get("class", []):
                 if i == 0:
                     end_games += league_text
 
                 end_games += match_text
+                status = "finished"
             else:
                 if i == 0:
                     next_games += league_text
 
                 next_games += match_text
+                status = "next"
 
+            games.append({"localTeam": local_team, "localTeamImg": local_team_img, "result": result.text,
+                         "visitantTeam": visitant_team, "visitantTeamImg": visitant_team_img, "league": league, "status": status})
             i += 1
 
-    return f"👋 Bienvenido, los partidos se muestran con el uso horario GMT+2\n{live_games}{next_games}{end_games}"
+    result_text = f"👋 Bienvenido, los partidos se muestran con el uso horario GMT+2\n{
+        live_games}{next_games}{end_games}"
+
+    save_db(games)
+    return result_text
 
 
 print(main())
