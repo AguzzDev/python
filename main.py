@@ -15,7 +15,7 @@ while True:
         doProcess()
         time.sleep(150)
     elif next_games:
-        next_game_time_str = next_games[-1]["result"]
+        next_game_time_str = next_games[0]["result"]
         current_time_str = datetime.now(spain_tz).strftime("%H:%M")
 
         next_game_time = datetime.strptime(next_game_time_str, "%H:%M")
