@@ -50,7 +50,7 @@ def main():
             result = row.select_one(
                 "td:nth-child(4) a span")
             info = row.select_one("td").text.strip() or ""
-            
+
             if league in cupsDictionary:
                 league_text = f"\n🏆 {league}\n"
             else:
@@ -79,7 +79,7 @@ def main():
                 status = "next"
 
             games.append({"localTeam": local_team, "localTeamImg": local_team_img, "result": result.text,
-                         "visitantTeam": visitant_team, "visitantTeamImg": visitant_team_img, "league": league, "status": status})
+                         "visitantTeam": visitant_team, "visitantTeamImg": visitant_team_img, "league": league, "info": info, "status": status})
             i += 1
 
     result_text = f"👋 Bienvenido, los partidos se muestran con el uso horario GMT+2\n{

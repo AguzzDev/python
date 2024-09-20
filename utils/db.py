@@ -9,11 +9,12 @@ MONGO_URL = os.getenv("MONGO_URL")
 class Games(Document):
     localTeam = StringField()
     visitantTeam = StringField()
-    localTeamImg= StringField()
-    visitantTeamImg=StringField()
+    localTeamImg = StringField()
+    visitantTeamImg = StringField()
     result = StringField()
     league = StringField()
     status = StringField()
+    info = StringField()
 
 
 def save_db(games):
