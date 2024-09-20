@@ -1,5 +1,6 @@
-from bs4 import BeautifulSoup
+import sys
 import requests
+from bs4 import BeautifulSoup
 from utils.dictionaries import matchesFilterDictionary, cupsDictionary, leagueIconDictionary
 from utils.db import save_db
 
@@ -81,8 +82,10 @@ def main():
     result_text = f"👋 Bienvenido, los partidos se muestran con el uso horario GMT+2\n{
         live_games}{next_games}{end_games}"
 
-    save_db(games)
-    return result_text
+    if len(sys.argv) == 2 and sys.argv[1] == "save":
+        save_db(games)
+    else:
+        print(result_text)
 
 
-print(main())
+main()
