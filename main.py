@@ -28,11 +28,14 @@ def main():
         "#spieltagsbox div[class='kategorie']")
     for i, data in enumerate(all_leagues_or_competition):
         title = data.select_one("h2 a").text
+        league_code = data.select_one("h2 a").get("href").split("/")[-1]
 
-        if title in matchesFilterDictionary:
+        exist = matchesFilterDictionary.get(league_code)
+        if exist:
             league_and_position.append({"pos": i, "title": title})
 
     tables = html.select("table.livescore")
+
     for item in league_and_position:
         league = item.get("title")
         pos = item.get("pos")
@@ -56,23 +59,24 @@ def main():
             else:
                 league_text = f"\n{leagueIconDictionary.get(league)} {
                     league}\n"
+
             match_text = f"{info} - {
                 local_team} - {result.text} - {visitant_team}\n"
 
             if "liveresult" in result.get("class", []):
-                if i == 0:
+                if not league_text in live_games:
                     live_games += league_text
 
                 live_games += match_text
                 status = "live"
             elif "finished" in result.get("class", []):
-                if i == 0:
+                if not league_text in end_games:
                     end_games += league_text
 
                 end_games += match_text
                 status = "finished"
             else:
-                if i == 0:
+                if not league_text in next_games:
                     next_games += league_text
 
                 next_games += match_text
