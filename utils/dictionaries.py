@@ -25,5 +25,6 @@ leagueIconDictionary = {
     "Premier League": "🇬🇧",
     "Ligue 1": "🇫🇷",
     "Serie A": "🇮🇹",
-    "Bundesliga": "🇩🇪"
+    "Bundesliga": "🇩🇪",
+    "Liga Profesional de Fútbol": "🇦🇷"
 }
